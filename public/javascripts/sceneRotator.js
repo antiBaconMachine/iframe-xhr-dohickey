@@ -1,9 +1,24 @@
 window.onload = function () {
   const iframe = document.querySelector('iframe')
   const urlParams = new URLSearchParams(window.location.search)
-  const scene = urlParams.has('scene') ? urlParams.get('scene') : 1
+  const h2 = document.querySelector('h2');
 
-  iframe.src = `/scenes/${scene}`
+  let scene = urlParams.has('scene') ? urlParams.get('scene') : 1
 
-  setInterval(() => iframe.src = `/scenes/${scene === 1 ? 2 : 1}`, 1000)
+  function update() {
+    iframe.src = `/scenes/${scene}`
+    h2.innerHTML = `Scene: ${scene}`
+  }
+
+  update()
+
+  if (iframe) {
+    iframe.src = `/scenes/${scene}`
+    setInterval(() => {
+      scene = scene === 1 ? 2 : 1
+      update()
+    }, 1000)
+  } else {
+    setInterval(() => window.location = `/single`, 1000)
+  }
 }

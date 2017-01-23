@@ -23,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/single', (req, res) => res.render('single'));
 app.use('/scenes', scenes);
 app.use('/random', (req, res) => res.end(Math.random().toString()));
 
